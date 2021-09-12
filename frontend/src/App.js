@@ -5,7 +5,7 @@ import Footer from "./components/footer";
 import CurrencyCard from "./components/currency-card";
 
 function App() {
-  const [currency, setCurrency] = useState("");
+  const [currency, setCurrency] = useState(1);
   const [currencies, setCurrencies] = useState([]);
 
   function changeCurrency(event) {
@@ -20,10 +20,6 @@ function App() {
       .then(data => {
         let currencies = [];
         for (const key in data) {
-          // <p id="name-${key.toLowerCase()}">${data[key].name}</p>
-          // <p id="value-${key.toLowerCase()}">${key} ${data[key].high}</p>
-          // <label for="${key.toLowerCase()}"></label>
-          // <input type="number" name="${key.toLowerCase()}" id="${key}" value="1" onchange="currencyConverter(this.value, this.id)">
           currencies.push({
             name: data[key].name,
             code: data[key].code,
@@ -42,14 +38,21 @@ function App() {
         <form>
           <label htmlFor="currency">R$</label>
           <input type="number" value={currency} onChange={changeCurrency} placeholder="Insira a sua quantia aqui" />
-          <input type="submit" value="Converter" />
         </form>
+        {currency}
         <div>
-          {currencies.map((currency, key) => {
-            return (
-              <CurrencyCard key={key} name={currency.name} code={currency.code} high={currency.high} />
-            );
-          })
+          {
+            currencies.map((currencyData, key) => {
+              return (
+                <CurrencyCard
+                  key={key}
+                  name={currencyData.name}
+                  code={currencyData.code}
+                  high={currencyData.high}
+                  value={currency}
+                />
+              );
+            })
           }
         </div>
       </main>
