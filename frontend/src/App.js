@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-// import axios from "axios";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import CurrencyCard from "./components/currency-card";
+import "./style.css";
 
 function App() {
   const [currency, setCurrency] = useState(1);
   const [currencies, setCurrencies] = useState([]);
 
   function changeCurrency(event) {
-    setCurrency(event.target.value);
+    if(event.target.value < 0) {
+     alert("Por favor insira valores positivos.");
+    } else {
+      setCurrency(event.target.value);
+    }
   }
 
   window.onload = getCurrency;
@@ -30,21 +34,20 @@ function App() {
       })
   }
 
-
   return (
     <div className="App">
       <Header />
       <main>
-        <form>
+        <form className="input-value">
           <label htmlFor="currency">R$</label>
           <input type="number" value={currency} onChange={changeCurrency} placeholder="Insira a sua quantia aqui" />
         </form>
-        {currency}
-        <div>
+        <div className="currencies-board">
           {
             currencies.map((currencyData, key) => {
               return (
                 <CurrencyCard
+                  className="card"
                   key={key}
                   name={currencyData.name}
                   code={currencyData.code}
