@@ -7,7 +7,7 @@ export default function CurrencyCard({ name, code, high, value }) {
             <div className="card">
                 <h3 className="currency-name">{name}</h3>
                 <p className="currency-value">{code}$ 1.00 = R$ {parseFloat(high).toFixed(2)}</p>
-                <p className="currency-converted">{code}$ {(high/value).toFixed(2)}</p>
+                <p className="currency-converted">{code}$ {(value/high).toFixed(2)}</p>
             </div>
         </>
     );
